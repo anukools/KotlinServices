@@ -41,7 +41,7 @@ class DownloadService : IntentService(DownloadService::class.java.name) {
                 val results = downloadData(url)
 
                 /* Sending result back to activity */
-                if (null != results && results.size > 0) {
+                if (null != results && results.isNotEmpty()) {
                     bundle.putStringArray("result", results)
                     receiver.send(STATUS_FINISHED, bundle)
                 }
@@ -58,7 +58,7 @@ class DownloadService : IntentService(DownloadService::class.java.name) {
     }
 
     @Throws(IOException::class, DownloadException::class)
-    private fun downloadData(requestUrl: String): Array<String>? {
+    private fun downloadData(requestUrl: String): Array<String?> {
         var inputStream: InputStream? = null
 
         var urlConnection: HttpURLConnection? = null
@@ -95,28 +95,23 @@ class DownloadService : IntentService(DownloadService::class.java.name) {
     private fun convertInputStreamToString(inputStream: InputStream?): String {
 
         val bufferedReader = BufferedReader(InputStreamReader(inputStream!!))
-        var line = ""
-        var result = ""
 
-        while ((line = bufferedReader.readLine()) != null) {
-            result += line
-        }
+        val result = inputStream.bufferedReader().use(BufferedReader::readText)
 
         /* Close Stream */
-        inputStream?.close()
+        inputStream.close()
 
         return result
     }
 
-    private fun parseResult(result: String): Array<String>? {
+    private fun parseResult(result: String): Array<String?> {
 
-        var blogTitles: Array<String>? = null
         try {
             val response = JSONObject(result)
 
             val posts = response.optJSONArray("posts")
 
-            blogTitles = arrayOfNulls(posts.length())
+            var blogTitles: Array<String?> =  arrayOfNulls<String>(posts.length())
 
             for (i in 0 until posts.length()) {
                 val post = posts.optJSONObject(i)
@@ -125,11 +120,12 @@ class DownloadService : IntentService(DownloadService::class.java.name) {
                 blogTitles[i] = title
             }
 
+            return blogTitles
         } catch (e: JSONException) {
             e.printStackTrace()
+            val temp: Array<String?> =  arrayOfNulls<String>(0)
+            return temp
         }
-
-        return blogTitles
     }
 
     inner class DownloadException : Exception {

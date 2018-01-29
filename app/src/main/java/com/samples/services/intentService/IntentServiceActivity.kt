@@ -5,37 +5,25 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.samples.R
+import kotlinx.android.synthetic.main.activity_intent_service.*
 
 class IntentServiceActivity : AppCompatActivity(), DownloadResultReceiver.Receiver {
-
-    private var listView: ListView? = null
-    private var progressBar: ProgressBar? = null
 
     private var arrayAdapter: ArrayAdapter<String>? = null
 
     private var mReceiver: DownloadResultReceiver? = null
 
-    internal val url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android"
+    private val url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /* Allow activity to show indeterminate progressbar */
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS)
-
         /* Set activity layout */
         setContentView(R.layout.activity_intent_service)
-
-        /* Initialize listView */
-        listView = findViewById<View>(R.id.listView) as ListView
-        progressBar = findViewById<View>(R.id.progress_spinner) as ProgressBar
 
         /* Starting Download Service */
         mReceiver = DownloadResultReceiver(Handler())
@@ -54,10 +42,11 @@ class IntentServiceActivity : AppCompatActivity(), DownloadResultReceiver.Receiv
         when (resultCode) {
             DownloadService.STATUS_RUNNING ->
 
-                progressBar!!.visibility = View.VISIBLE
+                progress_spinner!!.visibility = View.VISIBLE
+
             DownloadService.STATUS_FINISHED -> {
                 /* Hide progress & extract result from bundle */
-                progressBar!!.visibility = View.GONE
+                progress_spinner!!.visibility = View.GONE
 
                 val results = resultData.getStringArray("result")
 
@@ -67,7 +56,7 @@ class IntentServiceActivity : AppCompatActivity(), DownloadResultReceiver.Receiv
             }
             DownloadService.STATUS_ERROR -> {
                 /* Hide progress */
-                progressBar!!.visibility = View.GONE
+                progress_spinner!!.visibility = View.GONE
                 /* Handle the error */
                 val error = resultData.getString(Intent.EXTRA_TEXT)
                 Toast.makeText(this, error, Toast.LENGTH_LONG).show()
