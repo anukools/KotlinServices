@@ -41,7 +41,7 @@ class DownloadService : IntentService(DownloadService::class.java.name) {
                 val results = downloadData(url)
 
                 /* Sending result back to activity */
-                if (null != results && results.isNotEmpty()) {
+                if (results.isNotEmpty()) {
                     bundle.putStringArray("result", results)
                     receiver.send(STATUS_FINISHED, bundle)
                 }

@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.samples">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,9 +32,12 @@
             android:name=".services.BoundService"
             android:enabled="true" />
 
-        <activity android:name=".services.intentService.IntentServiceActivity"/>
+        <activity android:name=".services.intentService.IntentServiceActivity" />
         <service android:name=".services.intentService.DownloadService" />
 
+
+        <activity android:name=".services.foreground.ForegroundActivity"/>
+        <service android:name=".services.foreground.ForegroundService" />
     </application>
 
 </manifest>

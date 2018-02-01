@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.samples.R
+import com.samples.services.foreground.ForegroundActivity
 import com.samples.services.intentService.IntentServiceActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,6 +27,10 @@ class MainActivity : AppCompatActivity() {
                 val nextActivity = Intent(this, IntentServiceActivity::class.java)
                 startActivity(nextActivity)
             }
+            R.id.button4 -> {
+                val nextActivity = Intent(this, ForegroundActivity::class.java)
+                startActivity(nextActivity)
+            }
         }
     }
 
@@ -36,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         button1.setOnClickListener(clickListener)
         button2.setOnClickListener(clickListener)
         button3.setOnClickListener(clickListener)
+        button4.setOnClickListener(clickListener)
 
     }
 }

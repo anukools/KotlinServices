@@ -11,7 +11,7 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="Started/Unbound Service"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="Bound Service"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,12 +32,23 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="Intent Services"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:text="Foreground Services"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
 
 </android.support.constraint.ConstraintLayout>
